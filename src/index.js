@@ -5,18 +5,36 @@ import './index.css';
 
 
 class RedButton extends React.Component {
-  HandleClick(){
-  	alert("Please do not press this button again");
-  }
+	constructor(props) {
+		super(props);
+		this.state = {
+			clicked: 0,
+			hidden: true
+		}
+		this.handleClick = this.handleClick.bind(this);
+	}
 
-  render() {
-    return (
-    	<div className="app">
-    		<div className="instructions">Press the red button.... if you dare</div>
-    		<button onClick={this.HandleClick}>&nbsp;</button>
-    	</div>
-    )
-  }
+	handleClick() {
+		/*this.setState({
+			clicked: clicked++
+		})*/
+		this.setState({
+			hidden: false
+		})
+	}
+
+	render() {
+		let instructions = "Press the red button.... if you dare"
+		let message = "Please do not press this button again";
+
+	    return (
+	    	<div className="app">
+	    		<div className="instructions">{instructions}</div>
+	    		<button onClick={this.handleClick}>&nbsp;</button>
+	    		<div className={this.state.hidden ? "message hidden" : "message visible"}>{message}</div>
+	    	</div>
+	    )
+	}
 }
 
 ReactDOM.render(<RedButton />, document.getElementById('root'));
