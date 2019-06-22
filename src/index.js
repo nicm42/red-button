@@ -16,7 +16,9 @@ class RedButton extends React.Component {
 
 	handleClick() {
 		//Show the message for a short time before hiding it again
+		//And update instructions to include the word "again"
 		this.setState({
+			clicked: true,
 			hidden: false
 		})
 		setTimeout(() => this.setState({
@@ -26,11 +28,12 @@ class RedButton extends React.Component {
 
 	render() {
 		let instructions = "Press the red button.... if you dare"
+		let instructionsAgain = "Press the red button again.... if you dare"
 		let message = "Please do not press this button again";
 
 	    return (
 	    	<div className="app">
-	    		<div className="instructions">{instructions}</div>
+	    		<div className="instructions">{this.state.clicked ? instructionsAgain : instructions}</div>
 	    		<button onClick={this.handleClick}>&nbsp;</button>
 	    		<div className={this.state.hidden ? "message hidden" : "message visible"}>{message}</div>
 	    	</div>
