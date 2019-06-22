@@ -8,19 +8,20 @@ class RedButton extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			clicked: 0,
+			clicked: false,
 			hidden: true
 		}
 		this.handleClick = this.handleClick.bind(this);
 	}
 
 	handleClick() {
-		/*this.setState({
-			clicked: clicked++
-		})*/
+		//Show the message for a short time before hiding it again
 		this.setState({
 			hidden: false
 		})
+		setTimeout(() => this.setState({
+			hidden: true
+		}), 2000);
 	}
 
 	render() {
