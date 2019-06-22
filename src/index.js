@@ -9,7 +9,9 @@ class RedButton extends React.Component {
 		super(props);
 		this.state = {
 			clicked: false,
-			hidden: true
+			hidden: true,
+			count: 0,
+			fontSize: "0.5em"
 		}
 		this.handleClick = this.handleClick.bind(this);
 	}
@@ -19,11 +21,19 @@ class RedButton extends React.Component {
 		//And update instructions to include the word "again"
 		this.setState({
 			clicked: true,
-			hidden: false
+			hidden: false,
+			count: this.state.count + 1,
 		})
 		setTimeout(() => this.setState({
 			hidden: true
 		}), 2000);
+		//And increase the size of the message
+		//But the font size includes the unit, so we need to extract just the number
+		//and use that to set the new state
+		let newFont = Number(this.state.fontSize.match(/(\d)[.]?/g).join("")) + 0.5 + "em";
+		this.setState({
+			fontSize: newFont
+		})
 	}
 
 	render() {
@@ -35,7 +45,7 @@ class RedButton extends React.Component {
 	    	<div className="app">
 	    		<div className="instructions">{this.state.clicked ? instructionsAgain : instructions}</div>
 	    		<button onClick={this.handleClick}>&nbsp;</button>
-	    		<div className={this.state.hidden ? "message hidden" : "message visible"}>{message}</div>
+	    		<div className={this.state.hidden ? "message hidden" : "message visible"} style={{ fontSize: this.state.fontSize }}>{message}</div>
 	    	</div>
 	    )
 	}
